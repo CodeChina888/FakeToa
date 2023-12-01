@@ -27,13 +27,16 @@ class UserOption:
         return struct.pack('=B I H', self.toa_kind, self.toa_tcp_host, self.toa_tcp_port)
 
 def get_current_cgroup():
+    if os.path.exists('/sys/fs/cgroup/unified/'):
+        return '/sys/fs/cgroup/unified'
+
     with open('/proc/self/cgroup', 'r') as file:
         lines = file.readlines()
-    
+
     cgroup_info = []
     for line in lines:
         cgroup_info = line.strip().split(':')
-    
+
     return '/sys/fs/cgroup/' + cgroup_info[2][0:cgroup_info[2].index('/')]
 
 def execute_command(cmd):
