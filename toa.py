@@ -28,7 +28,7 @@ class UserOption:
 
 def get_current_cgroup():
     if os.path.exists('/sys/fs/cgroup/unified/'):
-        return '/sys/fs/cgroup/unified'
+        return '/sys/fs/cgroup/unified/'
 
     with open('/proc/self/cgroup', 'r') as file:
         lines = file.readlines()
